@@ -12,7 +12,7 @@ class EmailAddressFilter extends Filter
     public function isClean()
     {
         // #TODO: Make this more robust to cover more edge cases...
-        return preg_match('/[a-zA-Z0-9_]+@[a-zA-Z0-9_.]+/', $this->value);
+        return preg_match('/^[a-zA-Z0-9_]+@[a-zA-Z0-9_.]+$/', $this->value);
     }
 
     public function getSuggestion()
@@ -23,7 +23,7 @@ class EmailAddressFilter extends Filter
             return false;
         }
 
-        $value = preg_replace('/\s+/', '', $value);
+        $value = preg_replace('/\s+|-/', '', $value);
 
         return $value;
     }
