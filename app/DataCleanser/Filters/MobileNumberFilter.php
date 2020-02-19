@@ -4,8 +4,6 @@ namespace App\DataCleanser\Filters;
 
 class MobileNumberFilter extends Filter
 {
-    protected $keys = ['mobile', 'mobile_number'];
-
     public function isClean()
     {
         return preg_match('/0[0-9]{4}\s[0-9]{6}/', $this->value);

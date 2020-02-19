@@ -4,7 +4,6 @@ namespace App\DataCleanser\Filters;
 
 class TitleFilter extends Filter
 {
-    protected $keys = ['title'];
     protected $allowed = ['Master', 'Mr', 'Mrs', 'Miss', 'Ms', 'Dr'];
     protected $replacements = [
         'Mister' => 'Mr',
