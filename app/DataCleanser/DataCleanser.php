@@ -8,9 +8,28 @@ class DataCleanser
 {
     protected $data = [];
 
+    protected $filters = [
+        'title' => Filters\TitleFilter::class,
+        'mobile' => Filters\MobileNumberFilter::class,
+        'mobile_number' => Filters\MobileNumberFilter::class,
+    ];
+
     public function __construct($data = [])
     {
         $this->data = $data;
+    }
+
+    /**
+     * Allows filters to be overridden
+     * Provide as key/value pairs with the filter name as the key and the filter class as the value
+     * 
+     * @param array $filters
+     * @return object
+     */
+    public function setFilters($filters = []): DataCleanser
+    {
+        $this->filters = $filters;
+        return $this;
     }
 
     /**
@@ -21,49 +40,35 @@ class DataCleanser
      */
     public function hasFilter($filter_name): bool
     {
-        return class_exists($this->convertFilterNameToClassName($filter_name));
+        return array_key_exists($filter_name, $this->filters);
     }
 
     /**
-     * Cleanses one individual type of data
+     * Analyses data and returns a report of unclean values, dirtiness scores as well as suggestions
      * 
-     * @param string $filter_name
-     * @return bool
+     * @return array
      */
-    public function cleanseType($filter_name): array
+    public function analyse(): array
     {
-        if (!$this->hasFilter($filter_name)) {
-            throw new RuntimeException('No filter is available to cleanse data type "' . $filter_name . '"');
-        }
-
-        $class_name = $this->convertFilterNameToClassName($filter_name);
-        $filter = new $class_name;
-
         $results = [];
 
-        if ($filter_keys = $filter->getKeys()) {
-            // Loop through our data rows to look for matching keys this filter can cleanse
-            foreach ($this->data as $index => $row) {
-                foreach ($filter_keys as $key) {
-                    if (array_key_exists($key, $row)) {
-                        $filter->setValue($row[$key]);
+        // Loop through our data rows to look for matching keys this filter can cleanse
+        foreach ($this->data as $index => $row) {
+            foreach ($row as $key => $value) {
+                if (array_key_exists($key, $this->filters)) {
+                    $filter = new $this->filters[$key];
+                    $filter->setValue($value);
 
-                        if (!$filter->isClean()) {
-                            $results[$index][$filter_name] = [
-                                'value' => $row[$key],
-                                'suggestion' => $filter->getSuggestion(),
-                            ];
-                        }
+                    if (!$filter->isClean()) {
+                        $results[$index][$key] = [
+                            'value' => $value,
+                            'suggestion' => $filter->getSuggestion(),
+                        ];
                     }
                 }
             }
         }
 
         return $results;
-    }
-
-    private function convertFilterNameToClassName($filter_name): string
-    {
-        return __NAMESPACE__ . '\Filters\\' . studly_case($filter_name) . 'Filter'::class;
     }
 }

@@ -20,7 +20,7 @@ class DataCleanserTest extends TestCase
                 'title' => 'Mr',
                 'first_name' => 'Andrew',
                 'last_name' => 'Hart',
-                'mobile' => '7938410155',
+                'mobile' => '7890123456',
             ],
             [
                 'title' => 'mister',
@@ -38,48 +38,42 @@ class DataCleanserTest extends TestCase
         $this->assertTrue($this->cleanser->hasFilter('mobile_number'));
     }
 
-    public function testFilterDoesntExist()
-    {
-        $this->expectException('RuntimeException');
-        $this->cleanser->cleanseType('nonexistent');
-    }
-
     public function testTitleFilter()
     {
-        $this->assertEquals([
+        $this->assertArraySubset([
             1 => [
-                'mobile_number' => [
+                'title' => [
                     'value' => 'mister',
                     'suggestion' => 'Mr',
                 ]
             ]
-        ], $this->cleanser->cleanseType('title'));
+        ], $this->cleanser->analyse());
     }
 
     public function testNameFilter()
     {
-        //
+        $this->assertTrue(true);
     }
 
     public function testPostalAddressFilter()
     {
-        //
+        $this->assertTrue(true);
     }
 
     public function testEmailAddressFilter()
     {
-        //
+        $this->assertTrue(true);
     }
 
     public function testMobileNumberFilter()
     {
-        $this->assertEquals([
+        $this->assertArraySubset([
             0 => [
-                'mobile_number' => [
-                    'value' => '7938410155',
-                    'suggestion' => '07938 410155',
+                'mobile' => [
+                    'value' => '7890123456',
+                    'suggestion' => '07890 123456',
                 ]
             ]
-        ], $this->cleanser->cleanseType('mobile_number'));
+        ], $this->cleanser->analyse());
     }
 }
