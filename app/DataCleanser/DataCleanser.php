@@ -54,15 +54,23 @@ class DataCleanser
 
         // Loop through our data rows to look for matching keys this filter can cleanse
         foreach ($this->data as $index => $row) {
+            // Set up our results array for this row
+            $results[$index] = [
+                'dirty_data' => [],
+                'overall_dirtiness_score' => 0,
+            ];
+
             foreach ($row as $key => $value) {
                 if (array_key_exists($key, $this->filters)) {
                     $filter = new $this->filters[$key];
                     $filter->setValue($value);
 
                     if (!$filter->isClean()) {
-                        $results[$index][$key] = [
+                        $results[$index]['overall_dirtiness_score'] += $filter->getDirtinessScore();
+                        $results[$index]['dirty_data'][$key] = [
                             'value' => $value,
                             'suggestion' => $filter->getSuggestion(),
+                            'dirtiness_score' => $filter->getDirtinessScore(),
                         ];
                     }
                 }
