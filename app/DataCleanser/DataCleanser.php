@@ -13,15 +13,24 @@ class DataCleanser
         $this->data = $data;
     }
 
-    public function hasFilter($filter_name)
+    /**
+     * Check if we have a filter class for a particular data type
+     * 
+     * @param string $filter_name
+     * @return bool
+     */
+    public function hasFilter($filter_name): bool
     {
         return class_exists($this->convertFilterNameToClassName($filter_name));
     }
 
     /**
-     * Cleanses one individual type of data.
+     * Cleanses one individual type of data
+     * 
+     * @param string $filter_name
+     * @return bool
      */
-    public function cleanseType($filter_name)
+    public function cleanseType($filter_name): array
     {
         if (!$this->hasFilter($filter_name)) {
             throw new RuntimeException('No filter is available to cleanse data type "' . $filter_name . '"');
@@ -50,11 +59,10 @@ class DataCleanser
             }
         }
 
-        dump($results);
         return $results;
     }
 
-    private function convertFilterNameToClassName($filter_name)
+    private function convertFilterNameToClassName($filter_name): string
     {
         return __NAMESPACE__ . '\Filters\\' . studly_case($filter_name) . 'Filter'::class;
     }
