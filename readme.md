@@ -1,4 +1,4 @@
-# Laravel Data Cleaner
+# Laravel Data Cleanser
 
 Follow these steps to get things working:
 
