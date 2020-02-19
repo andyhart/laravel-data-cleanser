@@ -35,7 +35,7 @@ abstract class Filter
      */
     public function getDirtinessScore()
     {
-        return self::$dirtiness_score;
+        return static::$dirtiness_score;
     }
 
     /**
