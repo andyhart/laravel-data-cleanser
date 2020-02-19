@@ -12,6 +12,8 @@ class DataCleanser
         'title' => Filters\TitleFilter::class,
         'mobile' => Filters\MobileNumberFilter::class,
         'mobile_number' => Filters\MobileNumberFilter::class,
+        'email' => Filters\EmailAddressFilter::class,
+        'email_address' => Filters\EmailAddressFilter::class,
     ];
 
     public function __construct($data = [])
