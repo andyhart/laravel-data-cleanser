@@ -42,7 +42,7 @@ class DataCleanlinessReportCommand extends Command
          * For this example we'll get our data from a predefined JSON file.
          * In the real world this would arrive by other means.
          */
-        $data = json_decode(file_get_contents(storage_path('app/data.json')), true);
+        $data = json_decode(file_get_contents(base_path('app/data.json')), true);
 
         $cleanser = new DataCleanser($data);
 
