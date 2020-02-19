@@ -10,6 +10,8 @@ class DataCleanser
 
     protected $filters = [
         'title' => Filters\TitleFilter::class,
+        'first_name' => Filters\PersonNameFilter::class,
+        'last_name' => Filters\PersonNameFilter::class,
         'mobile' => Filters\MobileNumberFilter::class,
         'mobile_number' => Filters\MobileNumberFilter::class,
         'email' => Filters\EmailAddressFilter::class,

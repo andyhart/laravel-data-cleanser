@@ -47,9 +47,12 @@ class DataCleanserTest extends TestCase
         $this->assertSame('Mr', $this->result[1]['dirty_data']['title']['suggestion']);
     }
 
-    public function testNameFilter()
+    public function testPersonNameFilter()
     {
-        $this->assertTrue(true);
+        $this->assertArrayHasKey('first_name', $this->result[1]['dirty_data']);
+        $this->assertArrayHasKey('last_name', $this->result[1]['dirty_data']);
+        $this->assertSame('joe', $this->result[1]['dirty_data']['first_name']['value']);
+        $this->assertSame('Joe', $this->result[1]['dirty_data']['first_name']['suggestion']);
     }
 
     public function testEmailAddressFilter()
