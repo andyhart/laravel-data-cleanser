@@ -4,12 +4,13 @@ namespace Tests\Feature;
 
 use App\DataCleanser\DataCleanser;
 use App\DataCleanser\Filters\TitleFilter;
+use App\DataCleanser\Filters\MobileNumberFilter;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DataCleanserTest extends TestCase
 {
     protected $cleanser;
+    protected $result;
 
     public function setUp()
     {
@@ -31,6 +32,7 @@ class DataCleanserTest extends TestCase
         ];
 
         $this->cleanser = new DataCleanser($data);
+        $this->result = $this->cleanser->analyse();
     }
 
     public function testFilterExists()
@@ -40,14 +42,9 @@ class DataCleanserTest extends TestCase
 
     public function testTitleFilter()
     {
-        $this->assertArraySubset([
-            1 => [
-                'title' => [
-                    'value' => 'mister',
-                    'suggestion' => 'Mr',
-                ]
-            ]
-        ], $this->cleanser->analyse());
+        $this->assertArrayHasKey('title', $this->result[1]['dirty_data']);
+        $this->assertSame('mister', $this->result[1]['dirty_data']['title']['value']);
+        $this->assertSame('Mr', $this->result[1]['dirty_data']['title']['suggestion']);
     }
 
     public function testNameFilter()
@@ -67,13 +64,8 @@ class DataCleanserTest extends TestCase
 
     public function testMobileNumberFilter()
     {
-        $this->assertArraySubset([
-            0 => [
-                'mobile' => [
-                    'value' => '7890123456',
-                    'suggestion' => '07890 123456',
-                ]
-            ]
-        ], $this->cleanser->analyse());
+        $this->assertArrayHasKey('mobile', $this->result[0]['dirty_data']);
+        $this->assertSame('7890123456', $this->result[0]['dirty_data']['mobile']['value']);
+        $this->assertSame('07890 123456', $this->result[0]['dirty_data']['mobile']['suggestion']);
     }
 }
