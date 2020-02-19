@@ -18,7 +18,7 @@ class TitleFilter extends Filter
 
     public function getSuggestion()
     {
-        $value = ucwords(strtolower($this->getValue()));
+        $value = trim(ucwords(strtolower($this->getValue())));
 
         if (in_array($value, $this->allowed)) {
             return $value;

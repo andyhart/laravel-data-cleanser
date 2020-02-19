@@ -5,30 +5,14 @@ namespace App\DataCleanser\Filters;
 abstract class Filter
 {
     /**
-     * States which keys in a data array we should use this filter for
-     * eg: Names of people might use the keys 'first_name' and 'last_name'
+     * Dirtiness score for this filter
      */
-    protected $keys = [];
+    static $dirtiness_score = 10;
 
     /**
      * Stores the current value the filter is working on cleansing
      */
     protected $value;
-
-    /**
-     * Dirtiness score for this filter
-     */
-    protected $dirtiness_score = 10;
-
-    /**
-     * Gets all keys that this filter can check for to cleanse
-     * 
-     * @return bool
-     */
-    public function getKeys()
-    {
-        return $this->keys;
-    }
 
     /**
      * Sets the value for the filter
@@ -44,6 +28,14 @@ abstract class Filter
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Gets the dirtiness score for the filter
+     */
+    public function getDirtinessScore()
+    {
+        return self::$dirtiness_score;
     }
 
     /**
