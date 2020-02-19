@@ -5,14 +5,14 @@ namespace App\Console\Commands;
 use App\DataCleanser\DataCleanser;
 use Illuminate\Console\Command;
 
-class DataCleansingReportCommand extends Command
+class DataCleanlinessReportCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'data:cleansing-report';
+    protected $signature = 'data:cleanliness-report';
 
     /**
      * The console command description.
