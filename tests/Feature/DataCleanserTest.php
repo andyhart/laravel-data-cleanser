@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use App\DataCleanser\DataCleanser;
-use App\DataCleanser\Filters\TitleFilter;
-use App\DataCleanser\Filters\MobileNumberFilter;
 use Tests\TestCase;
 
 class DataCleanserTest extends TestCase
@@ -22,13 +20,15 @@ class DataCleanserTest extends TestCase
                 'first_name' => 'Andrew',
                 'last_name' => 'Hart',
                 'mobile' => '7890123456',
+                'email_address' => '   andy-hart-leeds@example.com',
             ],
             [
                 'title' => 'mister',
                 'first_name' => 'joe',
                 'last_name' => 'bloggs',
                 'mobile' => '07777 777777',
-            ]
+                'email_address' => 'test@example.com',
+            ],
         ];
 
         $this->cleanser = new DataCleanser($data);
@@ -52,14 +52,11 @@ class DataCleanserTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testPostalAddressFilter()
-    {
-        $this->assertTrue(true);
-    }
-
     public function testEmailAddressFilter()
     {
-        $this->assertTrue(true);
+        $this->assertArrayHasKey('email_address', $this->result[0]['dirty_data']);
+        $this->assertSame('   andy-hart-leeds@example.com', $this->result[0]['dirty_data']['email_address']['value']);
+        $this->assertSame('andyhartleeds@example.com', $this->result[0]['dirty_data']['email_address']['suggestion']);
     }
 
     public function testMobileNumberFilter()
