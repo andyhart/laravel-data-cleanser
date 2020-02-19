@@ -35,9 +35,11 @@ class DataCleanserTest extends TestCase
         $this->result = $this->cleanser->analyse();
     }
 
-    public function testFilterExists()
+    public function testGeniuneFiltersExist()
     {
+        $this->assertTrue($this->cleanser->hasFilter('title'));
         $this->assertTrue($this->cleanser->hasFilter('mobile_number'));
+        $this->assertFalse($this->cleanser->hasFilter('nothing'));
     }
 
     public function testTitleFilter()
