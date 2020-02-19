@@ -21,6 +21,7 @@ class DataCleanserTest extends TestCase
                 'last_name' => 'Hart',
                 'mobile' => '7890123456',
                 'email_address' => '   andy-hart-leeds@example.com',
+                'postcode' => '   ls145jz',
             ],
             [
                 'title' => 'mister',
@@ -28,6 +29,7 @@ class DataCleanserTest extends TestCase
                 'last_name' => 'bloggs',
                 'mobile' => '07777 777777',
                 'email_address' => 'test@example.com',
+                'postcode' => 'SW1W 9TQ',
             ],
         ];
 
@@ -69,5 +71,12 @@ class DataCleanserTest extends TestCase
         $this->assertArrayHasKey('mobile', $this->result[0]['dirty_data']);
         $this->assertSame('7890123456', $this->result[0]['dirty_data']['mobile']['value']);
         $this->assertSame('07890 123456', $this->result[0]['dirty_data']['mobile']['suggestion']);
+    }
+
+    public function testUKPostcodeFilter()
+    {
+        $this->assertArrayHasKey('postcode', $this->result[0]['dirty_data']);
+        $this->assertSame('   ls145jz', $this->result[0]['dirty_data']['postcode']['value']);
+        $this->assertSame('LS14 5JZ', $this->result[0]['dirty_data']['postcode']['suggestion']);
     }
 }

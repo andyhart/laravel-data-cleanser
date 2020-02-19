@@ -4,34 +4,39 @@
         "first_name": "Andrew",
         "last_name": "Hart",
         "email_address": "andyhart@example.com",
-        "mobile_number": "7777777777"
+        "mobile_number": "7777777777",
+        "postcode": " ls14 5jz "
     },
     {
         "title": "mister",
         "first_name": "joe",
         "last_name": "bloggs",
         "email_address": "     jb@example.com",
-        "mobile_number": "7890-123-456"
+        "mobile_number": "7890-123-456",
+        "postcode": "XXXXXX"
     },
     {
         "title": "",
         "first_name": "SUE",
         "last_name": "SOMEONE",
         "email_address": "ILIKESHOUTING@EXAMPLE.COM",
-        "mobile_number": "NUMBER"
+        "mobile_number": "NUMBER",
+        "postcode": "123"
     },
     {
         "title": "Dr",
         "first_name": "Perfect",
         "last_name": "Person",
         "email_address": "i_am_perfect@example.co.uk",
-        "mobile_number": "07123 456789"
+        "mobile_number": "07123 456789",
+        "postcode": ""
     },
     {
         "title": "Miss",
         "first_name": "Laura",
         "last_name": "Jones",
         "email_address": "laura   jones @ example . com",
-        "mobile_number": "07777 777 777"
+        "mobile_number": "07777 777 777",
+        "postcode": "SW1W9TQ"
     }
 ]

@@ -16,6 +16,7 @@ class DataCleanser
         'mobile_number' => Filters\MobileNumberFilter::class,
         'email' => Filters\EmailAddressFilter::class,
         'email_address' => Filters\EmailAddressFilter::class,
+        'postcode' => Filters\UKPostcodeFilter::class,
     ];
 
     public function __construct($data = [])
