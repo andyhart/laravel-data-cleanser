@@ -18,6 +18,10 @@ class MobileNumberFilter extends Filter
         // Remove non-numeric characters
         $value = preg_replace('/[^0-9]/', '', $value);
 
+        if (!$value) {
+            return false;
+        }
+
         // Add leading zero if missing
         if (substr($value, 0, 1) != 0) {
             $value = '0' . $value;

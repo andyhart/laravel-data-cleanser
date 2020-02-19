@@ -20,6 +20,10 @@ class TitleFilter extends Filter
     {
         $value = trim(ucwords(strtolower($this->getValue())));
 
+        if (!$value) {
+            return false;
+        }
+
         if (in_array($value, $this->allowed)) {
             return $value;
         }

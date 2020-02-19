@@ -51,8 +51,8 @@ class DataCleanlinessReportCommand extends Command
                 $this->info('Row ' . $index . ' has an overall dirtiness score of ' . $rows['overall_dirtiness_score']);
 
                 foreach ($rows['dirty_data'] as $key => $data) {
-                    $this->info("\t" . 'Value for field "' . $key . '" is "' . 
-                        $data['value'] . '", suggested is "' . $data['suggestion'] . '"');
+                    $this->info("\t" . 'Value for field "' . $key . '" is "' . $data['value'] . '"' . 
+                        ($data['suggestion'] ? ', suggested is "' . $data['suggestion'] . '"' : ''));
                 }
 
                 $this->info("\n");
