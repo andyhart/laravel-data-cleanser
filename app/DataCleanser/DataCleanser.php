@@ -66,8 +66,7 @@ class DataCleanser
 
             foreach ($row as $key => $value) {
                 if (array_key_exists($key, $this->filters)) {
-                    $filter = new $this->filters[$key];
-                    $filter->setValue($value);
+                    $filter = new $this->filters[$key]($value);
 
                     if (!$filter->isClean()) {
                         $results[$index]['overall_dirtiness_score'] += $filter->getDirtinessScore();

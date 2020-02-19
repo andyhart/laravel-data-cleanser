@@ -15,9 +15,9 @@ abstract class Filter
     protected $value;
 
     /**
-     * Sets the value for the filter
+     * Constructor sets the value for the filter
      */
-    public function setValue($value)
+    public function __construct($value)
     {
         $this->value = $value;
     }
